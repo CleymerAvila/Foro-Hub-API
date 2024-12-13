@@ -11,5 +11,5 @@ public enum Category {
     BUSINESS,
     INNOVATION,
     DEV_OPS,
-    OFF_TOPIC
+    OFF_TOPIC;
 }
