@@ -15,7 +15,7 @@ CREATE TABLE user_profile (
     profile_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, profile_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (profile_id) REFERENCES profile(profile_id) ON DELETE CASCADE
+    FOREIGN KEY (profile_id) REFERENCES profiles(profile_id) ON DELETE CASCADE
 );
 
 CREATE TABLE courses (
@@ -48,7 +48,7 @@ CREATE TABLE topics (
     ) DEFAULT 'ACTIVE',
     author BIGINT NOT NULL,
     course BIGINT NOT NULL,
-    FOREIGN KEY (author) REFERENCES authors(author_id) ON DELETE CASCADE,
+    FOREIGN KEY (author) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (course) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 

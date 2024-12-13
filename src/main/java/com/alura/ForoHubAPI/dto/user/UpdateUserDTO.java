@@ -1,5 +1,7 @@
 package com.alura.ForoHubAPI.dto.user;
 
-public record UpdateUserDTO(Long userId, String name, String password) {
+import jakarta.validation.constraints.Email;
+
+public record UpdateUserDTO(Long userId, @Email String email, String name, String password) {
 
 }
