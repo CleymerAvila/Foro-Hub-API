@@ -1,5 +1,7 @@
 package com.alura.ForoHubAPI.domain.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,4 +19,10 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
     private String name;
+    @ManyToMany(mappedBy = "profiles")
+    private List<User> users;
+
+    public Profile(String name){
+        this.name = name;
+    }
 }

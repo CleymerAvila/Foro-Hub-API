@@ -6,7 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.alura.ForoHubAPI.dto.user.RegisterUserDTO;
 
 @Entity(name = "User")
 @Table(name = "users")
@@ -26,5 +29,14 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
-    private List<Profile> profiles;
+    private List<Profile> profiles = new ArrayList<>();
+
+    public User(RegisterUserDTO data){
+        this.name = data.name();
+        this.password = data.password();
+    }
+
+    public void addProfile(Profile profile){
+        this.profiles.add(profile);
+    }
 }
