@@ -5,9 +5,9 @@ import java.util.List;
 import com.alura.ForoHubAPI.domain.model.User;
 import com.alura.ForoHubAPI.dto.profile.ProfileDTO;
 
-public record UserDTO(Long userId, String name, List<ProfileDTO> profiles) {
+public record UserDTO(Long userId, String name, String email, List<ProfileDTO> profiles) {
  
     public UserDTO(User user){
-        this(user.getUserId(), user.getName(), user.getProfiles().stream().map(ProfileDTO::new).toList());
+        this(user.getUserId(), user.getName(), user.getEmail(), user.getProfiles().stream().map(ProfileDTO::new).toList());
     }
 }

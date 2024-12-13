@@ -47,6 +47,7 @@ public class UserController {
         User user = new User();
         user.setName(data.name());
         user.setPassword(data.password());
+        user.setEmail(data.email());
         user.addProfile(profile);
 
         User userSaved = repository.save(user);
@@ -59,7 +60,7 @@ public class UserController {
                 .map(p -> new ProfileDTO(p))
                 .collect(Collectors.toList());
 
-        var userDTO = new UserDTO(userSaved.getUserId(), userSaved.getName(), profilesDTO);
+        var userDTO = new UserDTO(userSaved.getUserId(), userSaved.getName(), userSaved.getEmail(), profilesDTO);
 
         return ResponseEntity.created(url).body(userDTO);
     }
