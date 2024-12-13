@@ -77,7 +77,7 @@ public class UserController {
 
         user.setName(data.name());
         user.setPassword(data.password());
-        
+        user.setEmail(data.email());
 
         User userSaved = repository.save(user);
 
