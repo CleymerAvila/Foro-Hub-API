@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import com.alura.ForoHubAPI.dto.reply.RegisterReplyDTO;
+import com.alura.ForoHubAPI.dto.reply.UpdateReplyDTO;
+
 @Entity(name = "Reply")
 @Table(name = "replies")
 @Data
@@ -20,11 +23,26 @@ public class Reply {
     private Long replyId;
     private String message;
     @ManyToOne
-    @JoinColumn(name = "topic_id")
+    @JoinColumn(name = "topic")
     private Topic topic;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "user")
+    private User user;
     private String solution;
+
+    public Reply(RegisterReplyDTO data){
+        this.message = data.message();
+        this.solution = data.solution();
+    }
+
+    public void updateData(UpdateReplyDTO data) {
+        if (!data.message().isBlank()) {
+            this.message = data.message();
+        }
+
+        if (!data.solution().isBlank()) {
+            this.solution = data.solution();
+        }
+    }
 }
