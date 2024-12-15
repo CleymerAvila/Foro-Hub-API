@@ -28,7 +28,6 @@ import com.alura.ForoHubAPI.dto.topic.RegisterTopicDTO;
 import com.alura.ForoHubAPI.dto.topic.TopicDTO;
 import com.alura.ForoHubAPI.dto.topic.UpdateTopicDTO;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -51,14 +50,6 @@ public class TopicController {
         Course course = courseRepository.getReferenceById(data.courseId());
 
         User author = userRepository.getReferenceById(data.authorId());
-
-        if (course == null) {
-            throw new EntityNotFoundException("El curso no se encuentra registrado ");
-        } 
-
-        if (author==null) {
-            throw new EntityNotFoundException("El usuario no se encuentra en la base de datos");
-        }
 
         Topic topic = new Topic(data);
         topic.setUser(author);
