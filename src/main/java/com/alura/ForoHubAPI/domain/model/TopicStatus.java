@@ -5,6 +5,14 @@ public enum TopicStatus {
     DISCUSSED("DISCUTIDO"),
     ACTIVE("ACTIVO");
 
-    TopicStatus(String text){
+    private String spanishText;
+
+    TopicStatus(String spanishText){
+        this.spanishText = spanishText;
+    }
+
+    public String getspanishText(){
+        return spanishText;
     }
 }
+
