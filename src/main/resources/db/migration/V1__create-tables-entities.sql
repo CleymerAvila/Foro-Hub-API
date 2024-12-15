@@ -36,6 +36,8 @@ CREATE TABLE courses (
     ) DEFAULT "OFF_TOPIC"
 );
 
+
+
 CREATE TABLE topics (
     topic_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
@@ -46,10 +48,10 @@ CREATE TABLE topics (
         "DISCUSSED",
         "ACTIVE"
     ) DEFAULT 'ACTIVE',
-    author BIGINT NOT NULL,
+    user BIGINT NOT NULL,
     course BIGINT NOT NULL,
-    FOREIGN KEY (author) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (course) REFERENCES courses(course_id) ON DELETE CASCADE
+    CONSTRAINT fk_topic_user_id FOREIGN KEY (user) REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_topic_course_id FOREIGN KEY (course) REFERENCES courses(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE replies (
@@ -57,8 +59,8 @@ CREATE TABLE replies (
     message TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     solution BOOLEAN DEFAULT FALSE,
-    author BIGINT NOT NULL,
+    user BIGINT NOT NULL,
     topic BIGINT NOT NULL,
-    FOREIGN KEY (author) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (topic) REFERENCES topics(topic_id) ON DELETE CASCADE
+    CONSTRAINT fk_reply_user_id FOREIGN KEY (user) REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_reply_topic_id FOREIGN KEY (topic) REFERENCES topics(topic_id) ON DELETE CASCADE
 );
