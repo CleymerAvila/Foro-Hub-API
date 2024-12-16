@@ -27,10 +27,12 @@ import com.alura.ForoHubAPI.dto.reply.RegisterReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.ReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.UpdateReplyDTO;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/replies")
+@SecurityRequirement(name = "bearer-key")
 public class ReplyController {
 
     @Autowired

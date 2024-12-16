@@ -5,6 +5,7 @@ import com.alura.ForoHubAPI.domain.repository.CourseRepository;
 import com.alura.ForoHubAPI.dto.course.CourseDTO;
 import com.alura.ForoHubAPI.dto.course.RegisterCourseDTO;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -26,6 +27,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/courses")
+@SecurityRequirement(name = "bearer-key")
 public class CourseController {
 
     @Autowired

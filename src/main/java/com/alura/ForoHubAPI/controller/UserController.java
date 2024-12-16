@@ -28,10 +28,12 @@ import com.alura.ForoHubAPI.dto.user.RegisterUserDTO;
 import com.alura.ForoHubAPI.dto.user.UpdateUserDTO;
 import com.alura.ForoHubAPI.dto.user.UserDTO;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = "bearer-key")
 public class UserController {
 
     @Autowired

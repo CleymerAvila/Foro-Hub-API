@@ -27,10 +27,12 @@ import com.alura.ForoHubAPI.dto.topic.TopicDTO;
 import com.alura.ForoHubAPI.dto.topic.UpdateTopicDTO;
 import com.alura.ForoHubAPI.service.topic.TopicService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
 
     @Autowired
