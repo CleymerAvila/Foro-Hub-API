@@ -2,6 +2,7 @@ package com.alura.ForoHubAPI.infrastructure.errors;
 
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,6 +30,11 @@ public class GlobalErrorHandler {
     @ExceptionHandler(BusinessRulesValidationsException.class)
     public ResponseEntity<String> validationErrorHandler(BusinessRulesValidationsException e){
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> dataIntegrityErrorHandler(DataIntegrityViolationException e){
+        return ResponseEntity.badRequest().body("Ya existe un registro con la informacion suministrada");
     }
 
 

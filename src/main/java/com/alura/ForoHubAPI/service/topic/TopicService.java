@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alura.ForoHubAPI.domain.model.Course;
 import com.alura.ForoHubAPI.domain.model.Topic;
 import com.alura.ForoHubAPI.domain.model.User;
@@ -44,7 +42,7 @@ public class TopicService {
         }
 
         if (courseFound.isEmpty()) {
-            throw new BusinessRulesValidationsException("El Course al que hace referencia no existe");
+            throw new BusinessRulesValidationsException("El Curso al que hace referencia no existe");
         }
 
         // VALIDATION

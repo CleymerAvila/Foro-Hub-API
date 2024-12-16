@@ -2,6 +2,8 @@ package com.alura.ForoHubAPI.domain.model;
 
 import java.util.List;
 
+import com.alura.ForoHubAPI.dto.user.RegisterUserDTO;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +24,7 @@ public class Profile {
     @ManyToMany(mappedBy = "profiles")
     private List<User> users;
 
-    public Profile(String name){
-        this.name = name;
+    public Profile(RegisterUserDTO data){
+        this.name = data.profileType().toString();
     }
 }

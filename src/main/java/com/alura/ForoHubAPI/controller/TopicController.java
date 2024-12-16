@@ -4,6 +4,8 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,8 +51,10 @@ public class TopicController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ListTopicDTO>> getAllTopics(Pageable pageable){
-        return ResponseEntity.ok(topicRepository.findAll(pageable).map(ListTopicDTO::new));
+    public ResponseEntity<Page<ListTopicDTO>> getAllTopics(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.ASC) Pageable pageable){
+        Page<Topic> page = topicRepository.findAll(pageable);
+        Page<ListTopicDTO> dtoPage= page.map(ListTopicDTO::new);
+        return ResponseEntity.ok(dtoPage);
     }
 
     @GetMapping("/{topicId}")

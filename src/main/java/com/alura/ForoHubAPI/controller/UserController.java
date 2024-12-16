@@ -42,15 +42,17 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterUserDTO data, UriComponentsBuilder uriBuilder){
         
-        Profile profile = profileRepository.save(new Profile(data.nameProfile()));
+        Profile profile = new Profile(data);
 
         User user = new User();
         user.setName(data.name());
         user.setPassword(data.password());
         user.setEmail(data.email());
-        user.addProfile(profile);
 
         User userSaved = repository.save(user);
+        userSaved.addProfile(profileRepository.save(profile));
+        repository.save(userSaved);
+
 
         URI url = uriBuilder.path("/users/{userId}").buildAndExpand(userSaved.getUserId()).toUri();
 
