@@ -16,17 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.alura.ForoHubAPI.domain.model.Course;
 import com.alura.ForoHubAPI.domain.model.Topic;
-import com.alura.ForoHubAPI.domain.model.User;
-import com.alura.ForoHubAPI.domain.repository.CourseRepository;
 import com.alura.ForoHubAPI.domain.repository.TopicRepository;
-import com.alura.ForoHubAPI.domain.repository.UserRepository;
 import com.alura.ForoHubAPI.dto.topic.ListTopicDTO;
 import com.alura.ForoHubAPI.dto.topic.NewTopicDTO;
 import com.alura.ForoHubAPI.dto.topic.RegisterTopicDTO;
 import com.alura.ForoHubAPI.dto.topic.TopicDTO;
 import com.alura.ForoHubAPI.dto.topic.UpdateTopicDTO;
+import com.alura.ForoHubAPI.service.topic.TopicService;
 
 import jakarta.validation.Valid;
 
@@ -38,28 +35,17 @@ public class TopicController {
     private TopicRepository topicRepository;
 
     @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private TopicService topicService;
 
     @PostMapping
     public ResponseEntity<NewTopicDTO> registerTopic(@RequestBody @Valid RegisterTopicDTO data, 
                                                 UriComponentsBuilder uriBuilder){
 
-        Course course = courseRepository.getReferenceById(data.courseId());
+        var topicDetails = topicService.publish(data);
 
-        User author = userRepository.getReferenceById(data.authorId());
+        URI url = uriBuilder.path("/topics/{topicId}").buildAndExpand(topicDetails.topicId()).toUri();
 
-        Topic topic = new Topic(data);
-        topic.setUser(author);
-        topic.setCourse(course);
-
-        Topic topicSaved = topicRepository.save(topic);
-
-        URI url = uriBuilder.path("/topics/{topicId}").buildAndExpand(topicSaved.getTopicId()).toUri();
-
-        return ResponseEntity.created(url).body(new NewTopicDTO(topicSaved)); 
+        return ResponseEntity.created(url).body(topicDetails); 
     }
 
     @GetMapping
