@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.alura.ForoHubAPI.infrastructure.errors.exception.ValidationException;
+import com.alura.ForoHubAPI.infrastructure.errors.exception.BusinessRulesValidationsException;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -26,8 +26,8 @@ public class GlobalErrorHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<String> validationErrorHandler(ValidationException e){
+    @ExceptionHandler(BusinessRulesValidationsException.class)
+    public ResponseEntity<String> validationErrorHandler(BusinessRulesValidationsException e){
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
