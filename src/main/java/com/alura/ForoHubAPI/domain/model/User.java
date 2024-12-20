@@ -40,6 +40,7 @@ public class User implements UserDetails {
     public User(RegisterUserDTO data){
         this.name = data.name();
         this.password = data.password();
+        this.email = data.email();
     }
 
     public void addProfile(Profile profile){
