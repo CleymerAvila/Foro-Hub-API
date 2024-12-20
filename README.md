@@ -1,5 +1,8 @@
 ## <P align="center"> FORO HUB API PROJECT</P>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9db3369e-9f26-4fdc-8ec0-f69afe7baa25">
+</p>
 API Rest developed in Java with Spring Boot Framework for a online forum managament. Allow to users to sign-up, sign-in, post topics, answers it and more.
 
 ## Index
@@ -10,8 +13,6 @@ API Rest developed in Java with Spring Boot Framework for a online forum managam
 4. [Usage](#usage)
 5. [Project Structure](#project-structure)
 6. [Contribution](#contributions)
-7. [Licence](#licence)
-
 
 ## features
 
@@ -38,8 +39,8 @@ API Rest developed in Java with Spring Boot Framework for a online forum managam
 
      ```yaml
       spring.datasource.url=jdbc:postgresql://localhost:5432/foro_db
-      spring.datasource.username=tu_usuario
-      spring.datasource.password=tu_contraseña
+      spring.datasource.username=user
+      spring.datasource.password=password
       spring.jpa.hibernate.ddl-auto=update
 
   3. Compile and run project
