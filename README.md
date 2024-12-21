@@ -70,20 +70,19 @@ API Rest developed in Java with Spring Boot Framework for a online forum managam
 
 ## Project Structure
 
-    ```plaintext
-    src
-    ├── main
-    │   ├── java/com/alura/forohub-api
-    │   │   ├── controller   -> REST controllers.
-    │   │   ├── dto          -> Data transfer Objects.
-    │   │   ├── domain       -> JPA Entities and repositories.
-    │   │   ├── infrastructure  -> Error handlers, security and docs.
-    │   │   ├── service      -> Business Logic.
-    │   └── resources
-    │       ├── application.properties -> Configuration app.
-    │       └── db.migration.sql             -> Scripts SQL and migration with flyway (optional).
-    └── test
-        └── java/com/ejemplo/foro      -> Units Test and Integration.
+      src
+      ├── main
+      │   ├── java/com/alura/forohub-api
+      │   │   ├── controller   -> REST controllers.
+      │   │   ├── dto          -> Data transfer Objects.
+      │   │   ├── domain       -> JPA Entities and repositories.
+      │   │   ├── infrastructure  -> Error handlers, security and docs.
+      │   │   ├── service      -> Business Logic.
+      │   └── resources
+      │       ├── application.properties -> Configuration app.
+      │       └── db.migration.sql             -> Scripts SQL and migration with flyway (optional).
+      └── test
+          └── java/com/ejemplo/foro      -> Units Test and Integration.            
 
 
 ## Contributions
