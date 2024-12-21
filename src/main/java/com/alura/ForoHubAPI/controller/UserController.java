@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,8 @@ public class UserController {
     private UserRepository repository;
     @Autowired
     private ProfileRepository profileRepository;
+    @Autowired 
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping
     public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid RegisterUserDTO data, UriComponentsBuilder uriBuilder){
@@ -48,7 +51,7 @@ public class UserController {
 
         User user = new User();
         user.setName(data.name());
-        user.setPassword(data.password());
+        user.setPassword(passwordEncoder.encode(data.password()));
         user.setEmail(data.email());
 
         User userSaved = repository.save(user);
