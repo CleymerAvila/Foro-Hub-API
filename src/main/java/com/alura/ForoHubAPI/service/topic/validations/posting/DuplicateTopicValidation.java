@@ -1,4 +1,4 @@
-package com.alura.ForoHubAPI.service.topic.validations.publish;
+package com.alura.ForoHubAPI.service.topic.validations.posting;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 import com.alura.ForoHubAPI.domain.repository.TopicRepository;
 import com.alura.ForoHubAPI.dto.topic.RegisterTopicDTO;
 import com.alura.ForoHubAPI.infrastructure.errors.exception.BusinessRulesValidationsException;
-import com.alura.ForoHubAPI.service.topic.validations.ValidatorPublishTopic;
+import com.alura.ForoHubAPI.service.topic.validations.ValidatorPostingTopic;
 
 
 @Component
-public class DuplicateTopicValidation implements ValidatorPublishTopic {
+public class DuplicateTopicValidation implements ValidatorPostingTopic {
 
     @Autowired
     private TopicRepository topicRepository;

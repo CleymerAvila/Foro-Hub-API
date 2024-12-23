@@ -14,7 +14,7 @@ import com.alura.ForoHubAPI.domain.repository.UserRepository;
 import com.alura.ForoHubAPI.dto.topic.NewTopicDTO;
 import com.alura.ForoHubAPI.dto.topic.RegisterTopicDTO;
 import com.alura.ForoHubAPI.infrastructure.errors.exception.BusinessRulesValidationsException;
-import com.alura.ForoHubAPI.service.topic.validations.ValidatorPublishTopic;
+import com.alura.ForoHubAPI.service.topic.validations.ValidatorPostingTopic;
 
 @Service
 public class TopicService {
@@ -28,7 +28,7 @@ public class TopicService {
     private CourseRepository courseRepository;
 
     @Autowired
-    private List<ValidatorPublishTopic> validators;
+    private List<ValidatorPostingTopic> postValidators;
 
     
     public NewTopicDTO publish(RegisterTopicDTO data){
@@ -46,7 +46,7 @@ public class TopicService {
         }
 
         // VALIDATION
-        validators.forEach(v -> v.validate(data));
+        postValidators.forEach(v -> v.validate(data));
 
 
         User user = userFound.get();
