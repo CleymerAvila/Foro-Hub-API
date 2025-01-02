@@ -24,7 +24,7 @@ public class TokenService {
 
     public String generateToken(User user){
         try{
-            Algorithm algorithm = Algorithm.HMAC256("12345");
+            Algorithm algorithm = Algorithm.HMAC256(API_SECRET);
             return JWT.create()
                     .withIssuer("API FORO HUB")
                     .withSubject(user.getEmail())
@@ -45,7 +45,7 @@ public class TokenService {
         DecodedJWT verifier = null;
 
         try{
-            Algorithm algorithm = Algorithm.HMAC256("12345");
+            Algorithm algorithm = Algorithm.HMAC256(API_SECRET);
             verifier = JWT.require(algorithm)
                             .withIssuer("API FORO HUB")
                             .build()
