@@ -6,16 +6,17 @@ import com.alura.ForoHubAPI.domain.model.Topic;
 import com.alura.ForoHubAPI.domain.model.TopicStatus;
 
 public record ListTopicDTO(
+    Long topicId,
     String title,
     LocalDateTime createdAt,
     TopicStatus status,
-    Long userId,
-    Long courseId
+    String authorName,
+    String courseName
     ) {
 
     public ListTopicDTO(Topic topic){
-        this(topic.getTitle(), topic.getCreatedAt(), topic.getStatus(), 
-        topic.getUser().getUserId(), topic.getCourse().getCourseId());
+        this(topic.getTopicId(), topic.getTitle(), topic.getCreatedAt(), topic.getStatus(), 
+        topic.getUser().getName(), topic.getCourse().getName());
     }    
     
 }
