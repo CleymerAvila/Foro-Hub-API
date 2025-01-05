@@ -1,8 +1,9 @@
-## <P align="center"> FORO HUB API PROJECT</P>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9db3369e-9f26-4fdc-8ec0-f69afe7baa25">
 </p>
+
+## <P> Foro Hub API Rest</P>
 API Rest developed in Java with Spring Boot Framework for a online forum managament. Allow to users to sign-up, sign-in, post topics, answers it and more.
 
 ## Index
