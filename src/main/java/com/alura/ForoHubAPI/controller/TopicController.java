@@ -70,20 +70,14 @@ public class TopicController {
     @DeleteMapping("/{topicId}")
     @Transactional
     public ResponseEntity<Void> deleteTopic(@PathVariable long topicId){
-        topicRepository.deleteById(topicId);
+        topicService.deleteTopic(topicId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity<NewTopicDTO> updateTopic(@RequestBody @Valid UpdateTopicDTO data){
-        Topic topic = topicRepository.getReferenceById(data.topicId());
-
-        topic.updateData(data);
-
-        Topic topicSaved = topicRepository.save(topic);
-        
-        return ResponseEntity.ok(new NewTopicDTO(topicSaved));
+        return ResponseEntity.ok(topicService.updateTopic(data));
     }
 
 
