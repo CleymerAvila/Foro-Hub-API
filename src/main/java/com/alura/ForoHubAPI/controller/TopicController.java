@@ -53,7 +53,7 @@ public class TopicController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ListTopicDTO>> getAllTopics(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity<Page<ListTopicDTO>> getAllTopics(@PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.ASC) Pageable pageable){
         Page<Topic> page = topicRepository.findAll(pageable);
         Page<ListTopicDTO> dtoPage= page.map(ListTopicDTO::new);
         return ResponseEntity.ok(dtoPage);
