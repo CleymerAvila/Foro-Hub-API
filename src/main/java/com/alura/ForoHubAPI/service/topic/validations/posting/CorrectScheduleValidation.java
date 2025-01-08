@@ -15,9 +15,6 @@ public class CorrectScheduleValidation implements ValidatorPostingTopic{
     public void validate(RegisterTopicDTO data) {
         int currentHour = LocalDateTime.now().getHour();
 
-
-        System.out.println("Hora: "+ currentHour);
-
         if (currentHour < 7 || currentHour > 22) {
             throw new BusinessRulesValidationsException("No esta permitido publicar un topico en este horario");
         }

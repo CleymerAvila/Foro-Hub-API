@@ -1,5 +1,7 @@
 package com.alura.ForoHubAPI.service.topic;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,6 +76,16 @@ public class TopicService {
         validateTopicAuthor(data.topicId(), authenticatedUser.getUserId());
         Topic topic = topicRepository.getReferenceById(data.topicId());
 
+
+        // validate 15 minutes gap between created time and update time
+        var createdTime = topic.getCreatedAt();
+        var now = LocalDateTime.now();
+
+        var minutesDiference = Duration.between(createdTime, now).toMinutes();
+
+        if (minutesDiference > 15) {
+            throw new BusinessRulesValidationsException("El topico no puede ser actualizado despues de haber pasado 15 minutos");            
+        }
         topic.updateData(data);
 
         return new NewTopicDTO(topicRepository.save(topic));
