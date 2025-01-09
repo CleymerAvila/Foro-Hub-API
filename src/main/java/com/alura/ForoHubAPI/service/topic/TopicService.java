@@ -62,7 +62,7 @@ public class TopicService {
         if (!data.authorId().equals(authenticatedUser.getUserId())) {
             throw new BusinessRulesValidationsException("Error al crear el topico, accion no permitida para el usuario especificado");
         }
-
+        
         Topic topic = new Topic(data);
         topic.setUser(user);
         topic.setCourse(course);
