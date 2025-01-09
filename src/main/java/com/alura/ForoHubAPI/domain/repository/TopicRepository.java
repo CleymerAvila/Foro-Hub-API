@@ -12,5 +12,8 @@ public interface TopicRepository extends JpaRepository<Topic, Long>{
 
     @Query("SELECT COUNT(t) FROM Topic t WHERE t.user.userId = :userId AND DATE(t.createdAt) = CURRENT_DATE")
     int countTopicsCreatedByUserToday(@Param("userId")Long userId);
+
+    @Query("SELECT COUNT(DISTINCT t) FROM Topic t JOIN t.replies r WHERE r.user.id = :userId")
+    int countTopicInteractionFromUser(@Param("userId") Long userId);
     
 }
