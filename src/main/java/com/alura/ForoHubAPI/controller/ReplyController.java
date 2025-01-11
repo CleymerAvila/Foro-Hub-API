@@ -26,6 +26,7 @@ import com.alura.ForoHubAPI.domain.repository.UserRepository;
 import com.alura.ForoHubAPI.dto.reply.RegisterReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.ReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.UpdateReplyDTO;
+import com.alura.ForoHubAPI.service.reply.ReplyService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -41,23 +42,18 @@ public class ReplyController {
     private UserRepository userRepository;
     @Autowired
     private TopicRepository topicRepository;
+    @Autowired
+    private ReplyService replyService;
 
     @PostMapping
     public ResponseEntity<ReplyDTO> registerReply(@RequestBody @Valid RegisterReplyDTO data,
                                                 UriComponentsBuilder uriBuilder){
 
-        User user = userRepository.getReferenceById(data.authorId());
-        Topic topic = topicRepository.getReferenceById(data.topicId());
+        var reply = replyService.answerTopic(data);
 
-        Reply reply = new Reply(data);
-        reply.setUser(user);
-        reply.setTopic(topic);
+        URI url = uriBuilder.path("/replies/{replyId}").buildAndExpand(reply.replyId()).toUri();
 
-        Reply replySaved = replyRepository.save(reply);
-
-        URI url = uriBuilder.path("/replies/{replyId}").buildAndExpand(replySaved.getReplyId()).toUri();
-
-        return ResponseEntity.created(url).body(new ReplyDTO(replySaved));
+        return ResponseEntity.created(url).body(reply);
     }
 
     @GetMapping
