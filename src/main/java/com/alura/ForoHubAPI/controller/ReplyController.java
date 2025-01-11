@@ -39,10 +39,6 @@ public class ReplyController {
     @Autowired
     private ReplyRepository replyRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TopicRepository topicRepository;
-    @Autowired
     private ReplyService replyService;
 
     @PostMapping
@@ -58,7 +54,7 @@ public class ReplyController {
 
     @GetMapping
     public ResponseEntity<Page<ReplyDTO>> getAllReplies(Pageable pageable){
-        return ResponseEntity.ok(replyRepository.findAll(pageable).map(ReplyDTO::new));
+        return ResponseEntity.ok(replyService.getAllTopics(pageable));
     }
 
 

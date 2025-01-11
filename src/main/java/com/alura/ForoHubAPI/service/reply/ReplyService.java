@@ -3,6 +3,8 @@ package com.alura.ForoHubAPI.service.reply;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -56,6 +58,11 @@ public class ReplyService {
 
     }
 
+    public Page<ReplyDTO> getAllTopics(Pageable pageable){
+        return replyRepository.findAll(pageable).map(ReplyDTO::new);
+    }
+
+    
     private User getAuthenticateUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
