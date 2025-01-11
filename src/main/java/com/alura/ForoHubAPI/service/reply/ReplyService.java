@@ -1,5 +1,7 @@
 package com.alura.ForoHubAPI.service.reply;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.alura.ForoHubAPI.domain.repository.TopicRepository;
 import com.alura.ForoHubAPI.domain.repository.UserRepository;
 import com.alura.ForoHubAPI.dto.reply.RegisterReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.ReplyDTO;
+import com.alura.ForoHubAPI.dto.reply.UpdateReplyDTO;
 import com.alura.ForoHubAPI.infrastructure.errors.exception.BusinessRulesValidationsException;
 
 @Service
@@ -58,11 +61,33 @@ public class ReplyService {
 
     }
 
-    public Page<ReplyDTO> getAllTopics(Pageable pageable){
+    public Page<ReplyDTO> getAllReplies(Pageable pageable){
         return replyRepository.findAll(pageable).map(ReplyDTO::new);
     }
 
-    
+    public ReplyDTO updateReply(UpdateReplyDTO data){
+        var reply = replyRepository.getReferenceById(data.replyId());
+
+        // Verify 5 minutes gap between created time and update time
+        var createdTime = reply.getCreatedAt();
+        var now = LocalDateTime.now();
+        var minutesDiference = Duration.between(createdTime, now).toMinutes();
+
+        if (minutesDiference > 5) {
+            throw new BusinessRulesValidationsException("La respuesta no puede ser actualizada pasado 5 minutos");
+        }
+        reply.updateData(data);
+        return new ReplyDTO(replyRepository.save(reply));
+    }
+
+    public void deleteReply(Long replyId){
+        var authenticatedUser = getAuthenticateUser();
+        var reply = replyRepository.getReferenceById(replyId);
+        if (!reply.getUser().getUserId().equals(authenticatedUser.getUserId())) {
+            throw new BusinessRulesValidationsException("No puede eliminar respuestas de otros usuarios");
+        }
+        replyRepository.delete(reply);
+    }
     private User getAuthenticateUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

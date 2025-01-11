@@ -16,13 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.alura.ForoHubAPI.domain.model.Reply;
-import com.alura.ForoHubAPI.domain.model.Topic;
-import com.alura.ForoHubAPI.domain.model.User;
-import com.alura.ForoHubAPI.domain.repository.ReplyRepository;
-import com.alura.ForoHubAPI.domain.repository.TopicRepository;
-import com.alura.ForoHubAPI.domain.repository.UserRepository;
 import com.alura.ForoHubAPI.dto.reply.RegisterReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.ReplyDTO;
 import com.alura.ForoHubAPI.dto.reply.UpdateReplyDTO;
@@ -35,9 +28,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/replies")
 @SecurityRequirement(name = "bearer-key")
 public class ReplyController {
-
-    @Autowired
-    private ReplyRepository replyRepository;
     @Autowired
     private ReplyService replyService;
 
@@ -54,25 +44,21 @@ public class ReplyController {
 
     @GetMapping
     public ResponseEntity<Page<ReplyDTO>> getAllReplies(Pageable pageable){
-        return ResponseEntity.ok(replyService.getAllTopics(pageable));
+        return ResponseEntity.ok(replyService.getAllReplies(pageable));
     }
 
 
     @PutMapping
     @Transactional
     public ResponseEntity<ReplyDTO> updateReply(@RequestBody @Valid UpdateReplyDTO data){
-        Reply reply = replyRepository.getReferenceById(data.replyId());
-
-        reply.updateData(data);
-
-        return ResponseEntity.ok(new ReplyDTO(replyRepository.save(reply)));
+        return ResponseEntity.ok(replyService.updateReply(data));
     }
     
 
     @DeleteMapping("/{replyId}")
     @Transactional
     public ResponseEntity<Void> deleteReply(@PathVariable long replyId){
-        replyRepository.deleteById(replyId);
+        replyService.deleteReply(replyId);
         return ResponseEntity.noContent().build();
     }
     
