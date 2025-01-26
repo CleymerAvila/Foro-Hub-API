@@ -59,6 +59,14 @@ public class TopicController {
         return ResponseEntity.ok(dtoPage);
     }
 
+    @GetMapping("/category/{category}")
+    public ResponseEntity<Page<ListTopicDTO>> getAllTopicsByCourseCategory(@PathVariable String category, Pageable pageable){
+        Page<Topic> page = topicService.getFilterTopicsByCourseCategory(category.toUpperCase(), pageable);
+        Page<ListTopicDTO> dtoPage = page.map(ListTopicDTO::new);
+        return ResponseEntity.ok(dtoPage);
+    }
+
+
     @GetMapping("/{topicId}")
     public ResponseEntity<TopicDTO> getTopicDetails(@PathVariable Long topicId){
         

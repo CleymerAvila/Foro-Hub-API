@@ -5,7 +5,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.alura.ForoHubAPI.domain.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -99,6 +102,10 @@ public class TopicService {
         topicRepository.deleteById(topicId);
     }
 
+    public Page<Topic> getFilterTopicsByCourseCategory(String category, Pageable pageable){
+        var categoryEnum = Category.fromString(category);
+        return topicRepository.getTopicsByCoursesCategory(categoryEnum, pageable);
+    }
     private void validateTopicAuthor(Long topicId, Long userId){
 
         Topic topic = topicRepository.getReferenceById(topicId);
@@ -111,7 +118,6 @@ public class TopicService {
             throw new BusinessRulesValidationsException("No tienes permiso para modificar topicos de otros usuarios");
         }
     }
-
 
     private User getAuthenticatedUser(){
 

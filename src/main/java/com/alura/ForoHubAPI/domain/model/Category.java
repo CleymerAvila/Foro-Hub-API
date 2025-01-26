@@ -12,4 +12,13 @@ public enum Category {
     INNOVATION,
     DEV_OPS,
     OFF_TOPIC;
+
+    public static Category fromString(String name) {
+        for(Category c: Category.values() ){
+            if(name.toUpperCase().equals(c.toString().toUpperCase())){
+                return c;
+            }
+        }
+        return null;
+    }
 }
